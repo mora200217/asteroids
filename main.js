@@ -1,6 +1,6 @@
 let ship;
 function setup(){
-    createCanvas(screen.width, screen.height); 
+    createCanvas(screen.width - 100, screen.height - 200); 
     ship = new Ship();
 }
 
@@ -8,7 +8,7 @@ function draw(){
     background(0,0,0); 
     fill(255);
     noStroke();
-    ellipse(20, 20, 20, 20); 
+
     ship.draw(); 
 }
 
@@ -17,22 +17,43 @@ class Ship{
     
     constructor(){
         this.pos = createVector(200, 200); 
+        this.vel = createVector(1,1); 
+        this.dir =  createVector(0,1)
         this.RAD = 20; 
     }
 
     draw = function(){
-        this.pos.x = mouseX;
+        
         fill(255)
-        stroke(255); 
-    beginShape(); 
-        vertex(this.pos.x, this.pos.y + this.RAD); 
-        vertex(this.pos.x - 0.25 * this.RAD, this.pos.y - 0.5 * this.RAD); 
-
-    endShape(CLOSE); 
+        
+        
+        
+        beginShape(); 
+        vertex(this.pos.x, this.pos.y - this.RAD); 
+        vertex(this.pos.x - this.RAD, this.pos.y + this.RAD); 
+        vertex(this.pos.x, this.pos.y + 0.5 *  this.RAD); 
+        vertex(this.pos.x + this.RAD, this.pos.y + this.RAD); 
+        endShape(CLOSE); 
+        
     }
 
     update = function(){
+        
+            this.pos.add(vel)
+        
 
+    }
+
+    rotate = function(){
+        
     }
     
 }
+function keyPressed() {
+    ship.update();
+    if (keyCode === LEFT_ARROW) {
+      ship.update();
+    } else if (keyCode === RIGHT_ARROW) {
+      ship.rotate(1);
+    }
+  }
